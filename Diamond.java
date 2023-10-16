@@ -1,49 +1,91 @@
 import java.util.Scanner;
-// GOAL: print out a diamond shape depending on if the user input is even or odd
+
 public class Diamond {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Enter a positive integer greater than one: ");
-        int number = scanner.nextInt();
+        while (true) {
+            System.out.print("Enter a positive integer greater than one or type 'exit' to quit: ");
+            String input = scanner.next();
 
-            if(number % 2 == 0){ //even upper diamond
-              for(int i = 1; i <= number; i +=2){
-                int spaces = (number - i) / 2;
-                Spaces(spaces);
-                Stars(i);
-              }
-              for(int i = number; i > 0; i -= 2){
-                int spaces = (number - i) / 2;
-                Spaces(spaces);
-                Stars(i); // lower diamond
-              }
-              Stars(1);
+            if (input.equals("exit")) {
+                break;
             }
-            else{ //odd
-                for(int i = 1; i <= number; i += 2){
-                    int spaces = (number - i) / 2;
-                    Spaces(spaces);
-                    Stars(i);  // Upper diamond
+
+            if (isPositiveInteger(input)) {
+                int shapeSize = Integer.parseInt(input);
+
+                if (shapeSize > 1) {
+                    drawDiamond(shapeSize);
+                } else {
+                    System.out.println("Please enter a positive integer greater than one.");
                 }
-                for(int i = number - 2; i > 0; i -=2){
-                    int spaces = (number - i) / 2;
-                    Spaces(spaces);
-                    Stars(i); // Lower Diamond
-                }
+            } else {
+                System.out.println("Invalid input. Please enter a positive integer or 'exit'.");
             }
-            scanner.close();
         }
 
-    public static void Spaces(int count){
-        for(int j = 0; j < count; j ++){
-            System.out.print(" ");
+        scanner.close();
+    }
+
+    public static boolean isPositiveInteger(String str) {
+        try {
+            int value = Integer.parseInt(str);
+            return value > 0;
+        } catch (NumberFormatException e) {
+            return false;
         }
     }
-    public static void Stars(int count){
-        for(int j = 0; j < count; j++){
-            System.out.print("*");
+
+    public static void drawDiamond(int shapeSize) {
+        int rows, diamond;
+
+        if (shapeSize % 2 == 1) {
+            for (rows = 1; rows <= shapeSize; rows += 2) {
+                for (diamond = 0; diamond < (shapeSize - rows) / 2; diamond++) {
+                    System.out.print(" ");
+                }
+                for (diamond = 0; diamond < rows; diamond++) {
+                    System.out.print("*");
+                }
+                System.out.println();
+            }
+            for (rows = shapeSize - 2; rows >= 1; rows -= 2) {
+                for (diamond = 0; diamond < (shapeSize - rows) / 2; diamond++) {
+                    System.out.print(" ");
+                }
+                for (diamond = 0; diamond < rows; diamond++) {
+                    System.out.print("*");
+                }
+                System.out.println();
+            }
+        } else if (shapeSize % 2 == 0) {
+            for (int spaces = shapeSize - 1; spaces > 0; spaces--) {
+                System.out.print(" ");
+            }
+            System.out.println(" *");
+            for (rows = 2; rows <= shapeSize / 2 + 1; rows++) {
+                for (int spaces = -2 * rows + (shapeSize + 2); spaces > 0; spaces--) {
+                    System.out.print(" ");
+                }
+                for (diamond = 2 * rows - 2; diamond > 0; diamond--) {
+                    System.out.print(" *");
+                }
+                System.out.println();
+            }
+            for (rows = shapeSize / 2; rows >= 2; rows--) {
+                for (int spaces = -2 * rows + (shapeSize + 2); spaces > 0; spaces--) {
+                    System.out.print(" ");
+                }
+                for (diamond = 2 * rows - 2; diamond > 0; diamond--) {
+                    System.out.print(" *");
+                }
+                System.out.println();
+            }
+            for (int spaces = shapeSize - 1; spaces > 0; spaces--) {
+                System.out.print(" ");
+            }
+            System.out.println(" *");
         }
-        System.out.println();
     }
 }
