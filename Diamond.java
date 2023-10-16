@@ -4,13 +4,10 @@ public class Diamond {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Enter a positive integer: ");
+        System.out.print("Enter a positive integer greater than one: ");
         int number = scanner.nextInt();
-        if (number < 1){
-            System.out.println("Please enter a positive integer: "); //ensures a positive integer if one is not provided
-        }
-        else{
-            if(number % 2 == 0){ //even
+
+            if(number % 2 == 0){ //even upper diamond
               for(int i = 1; i <= number; i +=2){
                 int spaces = (number - i) / 2;
                 Spaces(spaces);
@@ -19,8 +16,9 @@ public class Diamond {
               for(int i = number; i > 0; i -= 2){
                 int spaces = (number - i) / 2;
                 Spaces(spaces);
-                Stars(i);
+                Stars(i); // lower diamond
               }
+              Stars(1);
             }
             else{ //odd
                 for(int i = 1; i <= number; i += 2){
@@ -34,10 +32,9 @@ public class Diamond {
                     Stars(i); // Lower Diamond
                 }
             }
+            scanner.close();
         }
 
-        scanner.close();
-    }
     public static void Spaces(int count){
         for(int j = 0; j < count; j ++){
             System.out.print(" ");
