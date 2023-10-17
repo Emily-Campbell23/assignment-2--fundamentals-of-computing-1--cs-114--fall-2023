@@ -3,89 +3,75 @@ import java.util.Scanner;
 public class Diamond {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-
         while (true) {
             System.out.print("Enter a positive integer greater than one or type 'exit' to quit: ");
             String input = scanner.next();
-
             if (input.equals("exit")) {
                 break;
             }
-
-            if (isPositiveInteger(input)) {
-                int shapeSize = Integer.parseInt(input);
-
-                if (shapeSize > 1) {
-                    drawDiamond(shapeSize);
-                } else {
-                    System.out.println("Please enter a positive integer greater than one.");
-                }
-            } else {
-                System.out.println("Invalid input. Please enter a positive integer or 'exit'.");
-            }
+            int size = Integer.parseInt(input);
+            drawDiamond(size);
         }
-
         scanner.close();
     }
 
-    public static boolean isPositiveInteger(String str) {
-        try {
-            int value = Integer.parseInt(str);
-            return value > 0;
-        } catch (NumberFormatException e) {
-            return false;
+    public static void drawDiamond(int shapeSize) {
+        if (shapeSize % 2 == 0) {
+            drawEvenDiamond(shapeSize);
+        } else {
+            drawOddDiamond(shapeSize);
         }
     }
 
-    public static void drawDiamond(int shapeSize) {
-        int rows, diamond;
-
-        if (shapeSize % 2 == 1) {
-            for (rows = 1; rows <= shapeSize; rows += 2) {
-                for (diamond = 0; diamond < (shapeSize - rows) / 2; diamond++) {
-                    System.out.print(" ");
-                }
-                for (diamond = 0; diamond < rows; diamond++) {
-                    System.out.print("*");
-                }
-                System.out.println();
-            }
-            for (rows = shapeSize - 2; rows >= 1; rows -= 2) {
-                for (diamond = 0; diamond < (shapeSize - rows) / 2; diamond++) {
-                    System.out.print(" ");
-                }
-                for (diamond = 0; diamond < rows; diamond++) {
-                    System.out.print("*");
-                }
-                System.out.println();
-            }
-        } else if (shapeSize % 2 == 0) {
-            for (int spaces = shapeSize - 1; spaces > 0; spaces--) {
+    public static void drawOddDiamond(int shapeSize) {
+        int row, diamond;
+        for (row = 1; row <= shapeSize; row += 2) {
+            for (diamond = 0; diamond < (shapeSize - row) / 2; diamond++) {
                 System.out.print(" ");
             }
-            System.out.println(" *");
-            for (rows = 2; rows <= shapeSize / 2 + 1; rows++) {
-                for (int spaces = -2 * rows + (shapeSize + 2); spaces > 0; spaces--) {
-                    System.out.print(" ");
-                }
-                for (diamond = 2 * rows - 2; diamond > 0; diamond--) {
-                    System.out.print(" *");
-                }
-                System.out.println();
+            for (diamond = 0; diamond < row; diamond++) {
+                System.out.print("*");
             }
-            for (rows = shapeSize / 2; rows >= 2; rows--) {
-                for (int spaces = -2 * rows + (shapeSize + 2); spaces > 0; spaces--) {
-                    System.out.print(" ");
-                }
-                for (diamond = 2 * rows - 2; diamond > 0; diamond--) {
-                    System.out.print(" *");
-                }
-                System.out.println();
-            }
-            for (int spaces = shapeSize - 1; spaces > 0; spaces--) {
-                System.out.print(" ");
-            }
-            System.out.println(" *");
+            System.out.println();
         }
+        for (row = shapeSize - 2; row >= 1; row -= 2) {
+            for (diamond = 0; diamond < (shapeSize - row) / 2; diamond++) {
+                System.out.print(" ");
+            }
+            for (diamond = 0; diamond < row; diamond++) {
+                System.out.print("*");
+            }
+            System.out.println();
+        }
+    }
+
+    public static void drawEvenDiamond(int shapeSize) {
+        int row, diamond;
+        for (int space = shapeSize - 1; space > 0; space--) {
+            System.out.print(" ");
+        }
+        System.out.println(" *");
+        for (row = 2; row <= shapeSize / 2 + 1; row++) {
+            for (int space = -2 * row + (shapeSize + 2); space > 0; space--) {
+                System.out.print(" ");
+            }
+            for (diamond = 2 * row - 2; diamond > 0; diamond--) {
+                System.out.print(" *");
+            }
+            System.out.println();
+        }
+        for (row = shapeSize / 2; row >= 2; row--) {
+            for (int space = -2 * row + (shapeSize + 2); space > 0; space--) {
+                System.out.print(" ");
+            }
+            for (diamond = 2 * row - 2; diamond > 0; diamond--) {
+                System.out.print(" *");
+            }
+            System.out.println();
+        }
+        for (int space = shapeSize - 1; space > 0; space--) {
+            System.out.print(" ");
+        }
+        System.out.println(" *");
     }
 }
